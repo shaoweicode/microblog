@@ -6,6 +6,22 @@ class User(db.Model):
     email = db.Column(db.String(120), index = True, unique = True)
     post = db.relationship('Post',backref='author',lazy='dynamic')
 
+    @property
+    def is_authenticated(self):
+        return True
+    
+    @property
+    def is_active(self):
+        return True
+    
+    @property
+    def is_anonymous(self):
+        return False
+    
+    @property
+    def get_id(self):
+        return str(self.id)
+
     def __repr__(self):
         return '<User %r>' % (self.nickname)
     
@@ -16,5 +32,5 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' %(self.body)
-        
+
 
